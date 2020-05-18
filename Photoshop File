@@ -1,0 +1,74 @@
+prompt = 'Upload image url: ';
+str = input(prompt,'s');
+    URL = str;
+    img = imread(URL);
+    
+motionblurfactor = 1;    
+prompt = 'Apply Filter: Motion Blur? Y/N [Y]';
+str1 = input(prompt,'s');
+    if str1 == 'Y'
+        prompt = 'Input Motion Blur factor (1-200): ';
+        motionblurfactor = input(prompt);
+        H = fspecial('motion',motionblurfactor,45);
+        MotionBlur = imfilter(img,H,'replicate');
+        img = MotionBlur;
+        
+            prompt = 'Preview Image? Y/N [Y]:';  
+            str2 = input (prompt, 's');
+                if str2 == 'Y'
+                imshow(img);
+                else
+            end
+    else    
+    end
+            
+diskblurfactor = 1;    
+prompt = 'Apply Filter: Disk Blur? Y/N [Y]';
+str3 = input(prompt,'s');
+    if str3 == 'Y'
+        prompt = 'Input Disk Blur factor (1-100): '
+        diskblurfactor = input(prompt);
+        H = fspecial('disk',diskblurfactor);
+        blurred = imfilter(img,H,'replicate');
+        img = blurred;  
+        prompt = 'Preview Image? Y/N [Y]:';  
+                str4 = input (prompt, 's');
+                if str4 == 'Y'
+                imshow(img);
+                else
+                end
+    else    
+    end
+
+    
+prompt = 'Apply Filter: Grayscale? Y/N [Y]';
+str5 = input(prompt,'s');
+    if str5 == 'Y'
+        gray = 0.2989 * img(:,:,1) + 0.5870 * img(:,:,2) + 0.1140 * img(:,:,3);
+        img = gray;
+        prompt = 'Grayscale filter applied. Preview image? Y/N [Y]';
+        str6 = input (prompt, 's');
+            if str6 == 'Y'
+            imshow(img);
+            else
+            end    
+    else
+    end
+    
+prompt = 'Apply Filter: Gamma Adjust? Y/N [Y]';
+str7 = input(prompt, 's');
+    if str7 == 'Y'        
+    RGB = imadjust(img,[.2 .3 0; .6 .7 1],[]);
+    img = RGB;
+    prompt = 'Gamma adjust filter applied. Preview image? Y/N [Y]';
+    str7 = input (prompt, 's');
+        if str7 == 'Y'
+        imshow(img);
+        else
+        end  
+    else
+    end
+
+
+imshow(img);
+    
